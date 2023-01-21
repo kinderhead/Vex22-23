@@ -15,11 +15,11 @@ using namespace std;
 
 // initialization of pros components
 controllerState masterController;
-pros::Motor leftTop(1);
-pros::Motor leftFront(7);
-pros::Motor leftBack(10);
-pros::Motor rightFront(5);
-pros::Motor rightBack(13);
+pros::Motor leftTop(7);
+pros::Motor leftFront(5);
+pros::Motor leftBack(8);
+pros::Motor rightFront(17);
+pros::Motor rightBack(1);
 pros::Motor liftMotor(15);
 pros::Motor ringBelt(17);
 pros::Motor rightTop(20);
