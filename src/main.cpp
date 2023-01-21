@@ -23,7 +23,7 @@ pros::Motor rightBack(1);
 pros::Motor winchRight(13);
 pros::Motor winchLeft(15);
 pros::Motor rightTop(20);
-ADIDigitalOut clawSolenoid('A');
+ADIDigitalIn button('A');
 ADIDigitalOut clampSolenoid('H');
 pros::Imu gyroSensor(8);
 bool braked = false;
@@ -94,7 +94,7 @@ void initialize()
     motorsCoast[i].set_brake_mode(E_MOTOR_BRAKE_COAST);
   }
 
-  clawSolenoid.set_value(true);
+  //clawSolenoid.set_value(true);
 
   leftTop.set_reversed(true);
   leftFront.set_reversed(true);
@@ -302,6 +302,21 @@ void turn(int angle, int speed, double coeff)
   //balls
 }
 
+void shotPullBack(double speed){
+  pros::delay(20);
+
+  while(!button.get_value()){
+    winchLeft.move(-speed);
+    winchRight.move(-speed);
+  }
+  winchLeft.move(0); 
+  winchRight.move(0);
+
+}
+
+
+
+
 void autonomous()
 {
   for (int i = 0; i < motorsCoast.size(); i++)
@@ -360,7 +375,7 @@ void autonomous()
   // Skill Issue
 
   clampSolenoid.set_value(false);
-  clawSolenoid.set_value(false);
+  //clawSolenoid.set_value(false);
   backward(9, 50, 2.5);
   clampSolenoid.set_value(true);
   forward(12, 100, 2.2);
@@ -369,7 +384,7 @@ void autonomous()
   turn(-87, 80, 2.2);
   pros::delay(100);
   forward(45, 100, 3, 0.85, 0.85);
-  clawSolenoid.set_value(true);
+  //clawSolenoid.set_value(true);
   pros::delay(100);
   turn(-12, 30, 2.2);
   masterController.master.rumble("....");
@@ -381,7 +396,7 @@ void autonomous()
   turn(-90, 50, 2.2);
   forward(10, 100, 2.5);
 
-  clawSolenoid.set_value(false);
+  //clawSolenoid.set_value(false);
   pros::delay(200);
 
   backward(19, 80, 2.2);
@@ -390,11 +405,11 @@ void autonomous()
   backward(16, 70, 2.1);
   turn(90, 80, 2.2);
   forward(20, 100, 2.5);
-  clawSolenoid.set_value(true);
+  //clawSolenoid.set_value(true);
   pros::delay(100);
   turn(90, 80, 2.2);
   forward(48, 69, 2.5);
-  clawSolenoid.set_value(false);
+  // clawSolenoid.set_value(false);
 
   // Right Goal
 
@@ -443,7 +458,7 @@ void opcontrol()
     // Solenoid Control
     if (masterController.y)
     {
-      clawSolenoid.set_value(!clawState);
+      // clawSolenoid.set_value(!clawState);
       clawState = !clawState;
     }
 
