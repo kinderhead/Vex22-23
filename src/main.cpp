@@ -12,7 +12,7 @@ using namespace std;
 #include "utils.h"
 
 // rename a program in the 'project.pros' file
-
+ 
 // initialization of pros components
 controllerState masterController;
 pros::Motor leftTop(7);
@@ -255,8 +255,6 @@ void backward(double distance, int speed, double coeff, double leftCorrect = 0.9
   rightMotorsVelocity(0);
   leftMotorsVelocity(0);
 }
-
-
 
 double angleDiff(double target, double current)
 {
