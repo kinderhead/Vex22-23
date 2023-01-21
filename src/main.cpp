@@ -20,17 +20,15 @@ pros::Motor leftFront(5);
 pros::Motor leftBack(8);
 pros::Motor rightFront(17);
 pros::Motor rightBack(1);
-pros::Motor liftMotor(15);
-pros::Motor ringBelt(17);
+pros::Motor winchRight(13);
+pros::Motor winchLeft(15);
 pros::Motor rightTop(20);
 ADIDigitalOut clawSolenoid('A');
 ADIDigitalOut clampSolenoid('H');
-ADIAnalogIn mainLiftPotentiometer('D');
 pros::Imu gyroSensor(8);
 bool braked = false;
 int desiredHeading = 0;
-vector<pros::Motor> motorsCoast{rightTop, rightFront, rightBack, leftTop, leftFront, leftBack, ringBelt};
-vector<pros::Motor> motorsBrake{liftMotor};
+vector<pros::Motor> motorsCoast{rightTop, rightFront, rightBack, leftTop, leftFront, leftBack};
 
 // declaration of global variables and constants
 pid sPID;
@@ -63,22 +61,6 @@ int iPID(int iDes, int iSensorInput, const float kP, const float kI, const float
   return (-1 * ((sPID.error * kP) + (sPID.integral * kI) + (sPID.derivative * kD)));
 }
 
-void moveLift(double speed)
-{
-  if (mainLiftPotentiometer.get_value_calibrated() > 2280 && speed > 0)
-  {
-    liftMotor.move_velocity(speed);
-  }
-  else if (mainLiftPotentiometer.get_value_calibrated() < 3621 && speed < 0)
-  {
-    liftMotor.move_velocity(speed);
-  }
-  else
-  {
-    liftMotor.move_velocity(0);
-  }
-}
-
 void on_center_button()
 {
 } // activates on center button press. Not needed for now
@@ -103,14 +85,9 @@ void tareMotors()
 void initialize()
 {
   pros::lcd::initialize();
-  mainLiftPotentiometer.calibrate();
   tareMotors();
   gyroSensor.reset();
   pros::delay(3000);
-  for (int i = 0; i < motorsBrake.size(); i++)
-  {
-    motorsBrake[i].set_brake_mode(E_MOTOR_BRAKE_HOLD);
-  }
 
   for (int i = 0; i < motorsCoast.size(); i++)
   {
@@ -122,8 +99,6 @@ void initialize()
   leftTop.set_reversed(true);
   leftFront.set_reversed(true);
   leftBack.set_reversed(true);
-  liftMotor.set_reversed(true);
-  ringBelt.set_reversed(true);
 }
 
 /**
@@ -183,11 +158,6 @@ void leftMotorsVelocity(double speed)
   leftTop.move_velocity(speed);
   leftFront.move_velocity(speed);
   leftBack.move_velocity(speed);
-}
-
-void moveRings(double speed)
-{
-  ringBelt.move(speed);
 }
 
 double getLeftEncoders()
@@ -407,62 +377,25 @@ void autonomous()
   masterController.master.rumble("....");
   pros::delay(100);
   forward(20, 100, 2.2);
-  while (mainLiftPotentiometer.get_value_calibrated() > 2469)
-  {
-    liftMotor.move_velocity(600);
-    pros::delay(20);
-  }
-  liftMotor.move_velocity(0);
   forward(20, 100, 2.5);
   turn(90, 50, 2.2);
   forward(37, 100, 2.5);
   turn(-90, 50, 2.2);
   forward(10, 100, 2.5);
-  while (mainLiftPotentiometer.get_value_calibrated() < 2700)
-  {
-    liftMotor.move_velocity(-600);
-    pros::delay(20);
-  }
-  liftMotor.move_velocity(0);
 
   clawSolenoid.set_value(false);
   pros::delay(200);
 
-  while (mainLiftPotentiometer.get_value_calibrated() > 2469)
-  {
-    liftMotor.move_velocity(600);
-    pros::delay(20);
-  }
-  liftMotor.move_velocity(0);
-
   backward(19, 80, 2.2);
   turn(90, 80, 2.2);
-  moveRings(127);
   forward(70, 50, 2.5);
-  ringBelt.move_velocity(0);
   backward(16, 70, 2.1);
-  while (mainLiftPotentiometer.get_value_calibrated() < 3600)
-  {
-    liftMotor.move_velocity(-600);
-    pros::delay(20);
-  }
   turn(90, 80, 2.2);
   forward(20, 100, 2.5);
   clawSolenoid.set_value(true);
   pros::delay(100);
-  while (mainLiftPotentiometer.get_value_calibrated() > 2469)
-  {
-    liftMotor.move_velocity(600);
-    pros::delay(20);
-  }
-  liftMotor.move_velocity(0);
   turn(90, 80, 2.2);
   forward(48, 69, 2.5);
-  while (mainLiftPotentiometer.get_value_calibrated() < 2900)
-  { // need to tweak this value to get it onto the platform
-    liftMotor.move_velocity(-600);
-    pros::delay(20);
-  }
   clawSolenoid.set_value(false);
 
   // Right Goal
@@ -543,33 +476,10 @@ void opcontrol()
       clampState = !clampState;
     }
 
-    // liftMotor
-    if (masterController.leftBumper1)
-    {
-      moveLift(600);
-    }
-    else if (masterController.leftBumper2)
-    {
-      moveLift(-600);
-    }
-    else
-    {
-      liftMotor.move_velocity(0);
-    }
-
     // Ring
     if (masterController.rightBumper1)
     {
       ringState = !ringState;
-    }
-
-    if (ringState && mainLiftPotentiometer.get_value_calibrated() < 3469)
-    {
-      moveRings(127);
-    }
-    else
-    {
-      moveRings(0);
     }
 
     pros::delay(20);
