@@ -15,3 +15,12 @@ typedef struct
   float threshold;
   int lastTime;
 } pid;
+
+// Forward declaration
+class Robot;
+
+int iPID(Robot* robot, int iDes, int iSensorInput, const float kP, const float kI, const float kD, const float kILimit);
+
+double monkeyPID(int speed, int distance, double coefficient, double encoder);
+
+double angleDiff(double target, double current);
