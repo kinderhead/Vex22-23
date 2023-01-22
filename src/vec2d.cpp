@@ -1,4 +1,4 @@
-#include "vec2d.h"
+#include "vec2d.hpp"
 
 Vec2d::Vec2d(int xVar, int yVar)
 {

@@ -1,7 +1,7 @@
-#include "robot.h"
+#include "robot.hpp"
 
 // Create a new class 
-#include "spin_out.h"
+#include "spin_out.hpp"
 
 Robot robot(new SpinOut());
 

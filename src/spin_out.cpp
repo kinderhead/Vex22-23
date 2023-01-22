@@ -1,6 +1,6 @@
-#include "spin_out.h"
+#include "spin_out.hpp"
 
-#include "robot.h"
+#include "robot.hpp"
 
 SpinOut::SpinOut()
 {

@@ -1,5 +1,5 @@
-#include "drive_train.h"
-#include "robot.h"
+#include "drive_train.hpp"
+#include "robot.hpp"
 
 DriveTrain::DriveTrain(Robot* robot)
 {

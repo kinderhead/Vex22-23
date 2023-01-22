@@ -8,12 +8,12 @@ using namespace okapi;
 using namespace pros;
 using namespace std;
 
-#include "vec2d.h"
-#include "controllerState.h"
-#include "utils.h"
+#include "vec2d.hpp"
+#include "controllerState.hpp"
+#include "utils.hpp"
 
-#include "drive_train.h"
-#include "vex_meet.h"
+#include "drive_train.hpp"
+#include "vex_meet.hpp"
 
 class Robot
 {

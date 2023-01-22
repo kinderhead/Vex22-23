@@ -1,6 +1,6 @@
 #pragma once
 
-#include "vec2d.h"
+#include "vec2d.hpp"
 #include "api.h"
 #include "okapi/api.hpp"
 
