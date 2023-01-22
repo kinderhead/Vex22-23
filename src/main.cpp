@@ -308,7 +308,7 @@ void shotPullBack(double speed){
   while(!button.get_value()){
     spinWinch(-speed);
   }
-  spinWinch(speed);
+  spinWinch(0);
 }
 
 void spinWinch(double speed) {
