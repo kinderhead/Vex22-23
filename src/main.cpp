@@ -457,38 +457,38 @@ void opcontrol()
     spinWinch(127);
 
     // Solenoid Control
-    if (masterController.y)
-    {
-      // clawSolenoid.set_value(!clawState);
-      clawState = !clawState;
-    }
+    // if (masterController.y)
+    // {
+    //   // clawSolenoid.set_value(!clawState);
+    //   clawState = !clawState;
+    // }
 
-    if (masterController.a)
-    {
-      braked = !braked;
-      if (braked)
-      {
-        for (int i = 0; i < motorsCoast.size(); i++)
-        {
-          motorsCoast[i].set_brake_mode(E_MOTOR_BRAKE_HOLD);
-        }
-        masterController.master.rumble("..-..");
-      }
-      else
-      {
-        masterController.master.rumble("--.--");
-        for (int i = 0; i < motorsCoast.size(); i++)
-        {
-          motorsCoast[i].set_brake_mode(E_MOTOR_BRAKE_COAST);
-        }
-      }
-    }
+    // if (masterController.a)
+    // {
+    //   braked = !braked;
+    //   if (braked)
+    //   {
+    //     for (int i = 0; i < motorsCoast.size(); i++)
+    //     {
+    //       motorsCoast[i].set_brake_mode(E_MOTOR_BRAKE_HOLD);
+    //     }
+    //     masterController.master.rumble("..-..");
+    //   }
+    //   else
+    //   {
+    //     masterController.master.rumble("--.--");
+    //     for (int i = 0; i < motorsCoast.size(); i++)
+    //     {
+    //       motorsCoast[i].set_brake_mode(E_MOTOR_BRAKE_COAST);
+    //     }
+    //   }
+    // }
 
-    if (masterController.rArrow)
-    {
-      clampSolenoid.set_value(!clampState);
-      clampState = !clampState;
-    }
+    // if (masterController.rArrow)
+    // {
+    //   clampSolenoid.set_value(!clampState);
+    //   clampState = !clampState;
+    // }
 
     // Ring
     if (masterController.rightBumper1)
