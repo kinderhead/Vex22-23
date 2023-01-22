@@ -302,6 +302,16 @@ void turn(int angle, int speed, double coeff)
   //balls
 }
 
+void spinWinch(double speed) {
+    winchLeft.move(speed);
+    winchRight.move(speed);
+}
+
+void spinWinchVelocity(double speed) {
+    winchLeft.move_velocity(speed);
+    winchRight.move_velocity(speed);
+}
+
 void shotPullBack(double speed){
   pros::delay(20);
 
@@ -309,11 +319,6 @@ void shotPullBack(double speed){
     spinWinch(-speed);
   }
   spinWinch(0);
-}
-
-void spinWinch(double speed) {
-    winchLeft.move(speed);
-    winchRight.move(speed);
 }
 
 void autonomous()
@@ -454,7 +459,11 @@ void opcontrol()
     rightMotors(masterController.rightStick.y);
     leftMotors(masterController.leftStick.y);
 
-    spinWinch(127);
+    if (masterController.y) {
+        spinWinchVelocity(100);
+    } else {
+        spinWinchVelocity(0);
+    }
 
     // Solenoid Control
     // if (masterController.y)
