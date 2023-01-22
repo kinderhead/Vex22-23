@@ -306,16 +306,15 @@ void shotPullBack(double speed){
   pros::delay(20);
 
   while(!button.get_value()){
-    winchLeft.move(-speed);
-    winchRight.move(-speed);
+    spinWinch(-speed);
   }
-  winchLeft.move(0); 
-  winchRight.move(0);
-
+  spinWinch(speed);
 }
 
-
-
+void spinWinch(double speed) {
+    winchLeft.move(speed);
+    winchRight.move(speed);
+}
 
 void autonomous()
 {
@@ -454,6 +453,8 @@ void opcontrol()
     // Drivetrain
     rightMotors(masterController.rightStick.y);
     leftMotors(masterController.leftStick.y);
+
+    spinWinch(127);
 
     // Solenoid Control
     if (masterController.y)
