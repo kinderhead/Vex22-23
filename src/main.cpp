@@ -27,6 +27,7 @@ ADIDigitalIn button('A');
 ADIDigitalOut clampSolenoid('H');
 pros::Imu gyroSensor(8);
 bool braked = false;
+bool toggledIntake = false;
 int desiredHeading = 0;
 vector<pros::Motor> motorsCoast{rightTop, rightFront, rightBack, leftTop, leftFront, leftBack};
 
@@ -99,6 +100,8 @@ void initialize()
   leftTop.set_reversed(true);
   leftFront.set_reversed(true);
   leftBack.set_reversed(true);
+
+  winchLeft.set_reversed(true);
 }
 
 /**
@@ -329,6 +332,7 @@ void autonomous()
   }
 
   pros::delay(20);
+  /*
 
   // https://github.com/kunwarsahni01/Vex-Autonomous-Selector
 
@@ -438,6 +442,7 @@ void autonomous()
   // clawSolenoid.set_value(true);
   // pros::delay(100);
   // backward(40, 600, 2.0);
+  */
 }
 
 void opcontrol()
@@ -449,7 +454,6 @@ void opcontrol()
 
   while (true)
   {
-
     pros::lcd::set_text(1, to_string(gyroSensor.get_rotation()));
 
     // Updates controller values
@@ -459,10 +463,12 @@ void opcontrol()
     rightMotors(masterController.rightStick.y);
     leftMotors(masterController.leftStick.y);
 
-    if (masterController.y) {
-        spinWinchVelocity(100);
+    if (masterController.y) toggledIntake = !toggledIntake;
+
+    if (toggledIntake) {
+        spinWinch(127);
     } else {
-        spinWinchVelocity(0);
+        spinWinch(0);
     }
 
     // Solenoid Control
