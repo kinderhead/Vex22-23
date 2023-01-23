@@ -32,4 +32,5 @@ public:
     void spinWinch(double speed);
     void spinWinchVelocity(double speed);
     void shotPullBack(double speed);
+    void launchDisks();
 };

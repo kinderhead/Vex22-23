@@ -20,9 +20,7 @@ void SpinOut::autonomous()
 }
 
 void SpinOut::opcontrolLoop()
-{
-    launch.set_value(false);
-    
+{   
     if (robot->masterController.uArrow) stringShooter.set_value(true);
 
     if (robot->masterController.y) toggledIntake = !toggledIntake;
@@ -31,6 +29,8 @@ void SpinOut::opcontrolLoop()
     } else {
         spinWinch(0);
     }
+
+    if (robot->masterController.leftBumper1) launchDisks();
 }
 
 void SpinOut::spinWinch(double speed)
@@ -54,4 +54,15 @@ void SpinOut::shotPullBack(double speed)
     }
 
     spinWinch(0);
+}
+
+void SpinOut::launchDisks()
+{
+    pros::delay(20);
+    spinWinch(0);
+
+    launch.set_value(true);
+    pros::delay(100);
+
+    shotPullBack(127);
 }
