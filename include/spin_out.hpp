@@ -21,6 +21,8 @@ public:
     ADIDigitalOut launch = ADIDigitalOut('A');
     ADIDigitalOut stringShooter = ADIDigitalOut('C');
 
+    bool toggledIntake = false;
+
     SpinOut();
 
     void initialize() override;
