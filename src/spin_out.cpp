@@ -67,6 +67,7 @@ void SpinOut::launchDisks()
 
     launch.set_value(true);
     pros::delay(100);
+    launch.set_value(false);
 
     shotPullBack(127);
 }
