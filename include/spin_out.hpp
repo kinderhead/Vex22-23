@@ -22,6 +22,7 @@ public:
     ADIDigitalOut stringShooter = ADIDigitalOut('C');
 
     bool toggledIntake = false;
+    bool pullingBack = false;
 
     SpinOut();
 

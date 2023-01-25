@@ -24,10 +24,19 @@ void SpinOut::opcontrolLoop()
     if (robot->masterController.rArrow) stringShooter.set_value(true);
 
     if (robot->masterController.rightBumper1) toggledIntake = !toggledIntake;
-    if (toggledIntake) {
-        spinWinch(127);
+
+    if (pullingBack) {
+        if (!button.get_value()){
+            spinWinch(-127);
+        } else {
+            pullingBack = false;
+        }
     } else {
-        spinWinch(0);
+        if (toggledIntake) {
+            spinWinch(127);
+        } else {
+            spinWinch(0);
+        }
     }
 
     if (robot->masterController.y) launchDisks();
@@ -47,10 +56,7 @@ void SpinOut::spinWinchVelocity(double speed)
 
 void SpinOut::shotPullBack(double speed)
 {
-
-    while(!button.get_value()){
-        spinWinch(-speed);
-    }
+    pullingBack = true;
 
     spinWinch(0);
 }
