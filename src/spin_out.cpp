@@ -12,7 +12,7 @@ void SpinOut::initialize()
     stringShooter.set_value(false);
     launch.set_value(false);
     winchLeft.set_reversed(true);
-    //shotPullBack(127);
+    shotPullBack(127);
 }
 
 void SpinOut::autonomous()
