@@ -10,7 +10,8 @@ SpinOut::SpinOut()
 void SpinOut::initialize()
 {
     stringShooter.set_value(false);
-    launch.set_value(false);
+    // Launch solenoid is reversed for some reason
+    launch.set_value(true);
     winchLeft.set_reversed(true);
     shotPullBack(127);
 }
@@ -65,9 +66,9 @@ void SpinOut::launchDisks()
 {
     spinWinch(0);
 
-    launch.set_value(true);
-    pros::delay(100);
     launch.set_value(false);
+    pros::delay(100);
+    launch.set_value(true);
 
     shotPullBack(127);
 }
