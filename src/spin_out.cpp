@@ -12,8 +12,7 @@ void SpinOut::initialize()
     stringShooter.set_value(false);
     // Launch solenoid is reversed for some reason
     launch.set_value(true);
-    winchLeft.set_reversed(true);
-    shotPullBack(127);
+    //shotPullBack(127);
 }
 
 void SpinOut::autonomous()
@@ -24,7 +23,21 @@ void SpinOut::opcontrolLoop()
 {   
     if (robot->masterController.rArrow) stringShooter.set_value(true);
 
-    if (robot->masterController.rightBumper1) toggledIntake = !toggledIntake;
+    if (robot->masterController.leftBumper1) {
+        if (intakeSpeed == -INTAKE_SPEED) {
+            intakeSpeed = 0;
+        } else {
+            intakeSpeed = -INTAKE_SPEED;
+        }
+    }
+
+    if (robot->masterController.leftBumper2) {
+        if (intakeSpeed == INTAKE_SPEED) {
+            intakeSpeed = 0;
+        } else {
+            intakeSpeed = INTAKE_SPEED;
+        }
+    }
 
     if (pullingBack) {
         if (!button.get_value()){
@@ -33,26 +46,25 @@ void SpinOut::opcontrolLoop()
             pullingBack = false;
         }
     } else {
-        if (toggledIntake) {
-            spinWinch(127);
-        } else {
-            spinWinch(0);
-        }
+        spinIntake(intakeSpeed);
     }
 
     if (robot->masterController.y) launchDisks();
 }
 
+void SpinOut::spinIntake(double speed)
+{
+    intake.move(speed);
+}
+
 void SpinOut::spinWinch(double speed)
 {
-    winchLeft.move(speed);
-    winchRight.move(speed);
+    winch.move(speed);
 }
 
 void SpinOut::spinWinchVelocity(double speed)
 {
-    winchLeft.move_velocity(speed);
-    winchRight.move_velocity(speed);
+    winch.move_velocity(speed);
 }
 
 void SpinOut::shotPullBack(double speed)

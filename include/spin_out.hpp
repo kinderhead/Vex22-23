@@ -12,16 +12,18 @@ using namespace std;
 #include "controllerState.hpp"
 #include "utils.hpp"
 
+#define INTAKE_SPEED 127
+
 class SpinOut : public VexMeet
 {
 public:
-    pros::Motor winchRight = pros::Motor(13);
-    pros::Motor winchLeft = pros::Motor(15);
+    pros::Motor winch = pros::Motor(13);
+    pros::Motor intake = pros::Motor(15);
     ADIDigitalIn button = ADIDigitalIn('B');
     ADIDigitalOut launch = ADIDigitalOut('A');
     ADIDigitalOut stringShooter = ADIDigitalOut('C');
 
-    bool toggledIntake = false;
+    int intakeSpeed = 0;
     bool pullingBack = false;
 
     SpinOut();
@@ -30,6 +32,7 @@ public:
     void autonomous() override;
     void opcontrolLoop() override;
 
+    void spinIntake(double speed);
     void spinWinch(double speed);
     void spinWinchVelocity(double speed);
     void shotPullBack(double speed);
