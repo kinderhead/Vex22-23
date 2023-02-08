@@ -17,14 +17,17 @@ using namespace std;
 class SpinOut : public VexMeet
 {
 public:
-    pros::Motor winch = pros::Motor(13);
-    pros::Motor intake = pros::Motor(15);
+    pros::Motor winch = pros::Motor(1);
+    pros::Motor intake = pros::Motor(5);
     ADIDigitalIn button = ADIDigitalIn('B');
     ADIDigitalOut launch = ADIDigitalOut('A');
     ADIDigitalOut stringShooter = ADIDigitalOut('C');
 
     int intakeSpeed = 0;
     bool pullingBack = false;
+
+    // Testing
+    bool winchSpin = false;
 
     SpinOut();
 
