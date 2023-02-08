@@ -12,7 +12,7 @@ void SpinOut::initialize()
     stringShooter.set_value(false);
     // Launch solenoid is reversed for some reason
     launch.set_value(true);
-    shotPullBack(127);
+    //shotPullBack(127);
 }
 
 void SpinOut::autonomous()
@@ -43,14 +43,14 @@ void SpinOut::opcontrolLoop()
     }
 
     if (winchSpin) {
-        spinWinch(-127);
+        spinCatapult(-127);
     } else {
-        spinWinch(0);
+        spinCatapult(0);
     }
 
     if (pullingBack) {
         if (!button.get_value()){
-            spinWinch(-127);
+            spinCatapult(-127);
         } else {
             pullingBack = false;
         }
@@ -72,31 +72,22 @@ void SpinOut::spinIntake(double speed)
     intake.move(speed);
 }
 
-void SpinOut::spinWinch(double speed)
+void SpinOut::spinCatapult(double speed)
 {
-    winch.move(speed);
+    catapult.move(speed);
 }
 
-void SpinOut::spinWinchVelocity(double speed)
+void SpinOut::spinCatapultVelocity(double speed)
 {
-    winch.move_velocity(speed);
-}
-
-void SpinOut::shotPullBack(double speed)
-{
-    pullingBack = true;
-
-    spinWinch(0);
+    catapult.move_velocity(speed);
 }
 
 void SpinOut::launchDisks()
 {
-    spinWinch(0);
+    spinCatapult(0);
 
     launch.set_value(false);
     pros::delay(750);
 
     launch.set_value(true);
-
-    shotPullBack(127);
 }
