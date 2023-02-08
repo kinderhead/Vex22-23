@@ -20,13 +20,13 @@ class Robot
 public:
     // initialization of pros components
     controllerState masterController;
-    pros::Motor leftTop = pros::Motor(7);
-    pros::Motor leftFront = pros::Motor(5);
-    pros::Motor leftBack = pros::Motor(8);
-    pros::Motor rightFront = pros::Motor(17);
-    pros::Motor rightBack = pros::Motor(1);
+    pros::Motor leftTop = pros::Motor(13);
+    pros::Motor leftFront = pros::Motor(17);
+    pros::Motor leftBack = pros::Motor(7);
+    pros::Motor rightFront = pros::Motor(21);
+    pros::Motor rightBack = pros::Motor(8);
     pros::Motor rightTop = pros::Motor(20);
-    pros::Imu gyroSensor = pros::Imu(8);
+    pros::Imu gyroSensor = pros::Imu(15);
     
     int desiredHeading = 0;
     vector<pros::Motor> motorsCoast{rightTop, rightFront, rightBack, leftTop, leftFront, leftBack};
