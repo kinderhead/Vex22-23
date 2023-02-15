@@ -11,7 +11,6 @@ void SpinOut::initialize()
 {
     stringShooter.set_value(false);
     // Launch solenoid is reversed for some reason
-    launch.set_value(true);
     //shotPullBack(127);
 }
 
@@ -35,21 +34,19 @@ void SpinOut::autonomous()
 
 void SpinOut::opcontrolLoop()
 {   
-    if (robot->masterController.rArrow) stringShooter.set_value(true);
-
     if (robot->masterController.a) {
         pullingBack = false;
-        winchSpin = !winchSpin;
+        catapultSpin = !catapultSpin;
     }
 
-    if (winchSpin) {
+    if (catapultSpin) {
         spinCatapult(-127);
     } else {
         spinCatapult(0);
     }
 
     if (pullingBack) {
-        if (!button.get_value()){
+        if (!lever.get_value()) {
             spinCatapult(-127);
         } else {
             pullingBack = false;
@@ -65,6 +62,10 @@ void SpinOut::opcontrolLoop()
     }
 
     if (robot->masterController.y) launchDisks();
+
+    if (pros::millis() >= 110000) {
+        if (robot->masterController.rArrow) stringShooter.set_value(true);
+    }
 }
 
 void SpinOut::spinIntake(double speed)
@@ -82,12 +83,14 @@ void SpinOut::spinCatapultVelocity(double speed)
     catapult.move_velocity(speed);
 }
 
+void SpinOut::spinBackCatapult()
+{
+    pullingBack = true;
+}
+
 void SpinOut::launchDisks()
 {
-    spinCatapult(0);
-
-    launch.set_value(false);
-    pros::delay(750);
-
-    launch.set_value(true);
+    spinCatapult(-127);
+    pros::delay(250);
+    spinBackCatapult();
 }
