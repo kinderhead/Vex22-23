@@ -17,14 +17,17 @@ using namespace std;
 class SpinOut : public VexMeet
 {
 public:
-    pros::Motor winch = pros::Motor(1);
-    pros::Motor intake = pros::Motor(5);
+    pros::Motor winch = pros::Motor(13);
+    pros::Motor intake = pros::Motor(15);
     ADIDigitalIn button = ADIDigitalIn('B');
     ADIDigitalOut launch = ADIDigitalOut('A');
     ADIDigitalOut stringShooter = ADIDigitalOut('C');
 
     int intakeSpeed = 0;
     bool pullingBack = false;
+
+    // Testing
+    bool winchSpin = false;
 
     SpinOut();
 
@@ -33,8 +36,7 @@ public:
     void opcontrolLoop() override;
 
     void spinIntake(double speed);
-    void spinWinch(double speed);
-    void spinWinchVelocity(double speed);
-    void shotPullBack(double speed);
+    void spinCatapult(double speed);
+    void spinCatapultVelocity(double speed);
     void launchDisks();
 };
