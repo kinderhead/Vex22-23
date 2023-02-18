@@ -63,8 +63,6 @@ void SpinOut::opcontrolLoop()
 
     if (robot->masterController.y) launchDisks();
 
-    if (robot->masterController.rightBumper2) reverse();
-
     if (robot->masterController.rArrow) stringShooter.set_value(true);
 }
 
