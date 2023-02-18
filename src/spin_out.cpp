@@ -63,9 +63,9 @@ void SpinOut::opcontrolLoop()
 
     if (robot->masterController.y) launchDisks();
 
-    if (pros::millis() >= 110000) {
-        if (robot->masterController.rArrow) stringShooter.set_value(true);
-    }
+    if (robot->masterController.rightBumper2) reverse();
+
+    if (robot->masterController.rArrow) stringShooter.set_value(true);
 }
 
 void SpinOut::spinIntake(double speed)
@@ -91,6 +91,6 @@ void SpinOut::spinBackCatapult()
 void SpinOut::launchDisks()
 {
     spinCatapult(-127);
-    pros::delay(250);
+    pros::delay(750);
     spinBackCatapult();
 }

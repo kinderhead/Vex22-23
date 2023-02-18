@@ -19,7 +19,7 @@ class SpinOut : public VexMeet
 public:
     pros::Motor catapult = pros::Motor(1);
     pros::Motor intake = pros::Motor(5);
-    ADIDigitalIn button = ADIDigitalIn('B');
+    ADIDigitalIn lever = ADIDigitalIn('B');
     ADIDigitalOut launch = ADIDigitalOut('A');
     ADIDigitalOut stringShooter = ADIDigitalOut('C');
 
@@ -40,4 +40,5 @@ public:
     void spinCatapultVelocity(double speed);
     void spinBackCatapult();
     void launchDisks();
+    
 };
