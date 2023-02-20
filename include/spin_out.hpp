@@ -20,8 +20,8 @@ public:
     pros::Motor catapult = pros::Motor(1);
     pros::Motor intake = pros::Motor(5);
     ADIDigitalIn lever = ADIDigitalIn('B');
-    ADIDigitalOut launch = ADIDigitalOut('A');
     ADIDigitalOut stringShooter = ADIDigitalOut('C');
+    ADIDigitalOut blockerW = ADIDigitalOut('A');
 
     int intakeSpeed = 0;
     bool pullingBack = false;

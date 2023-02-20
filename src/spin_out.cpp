@@ -16,11 +16,12 @@ void SpinOut::initialize()
 
 void SpinOut::autonomous()
 {
-    robot->forward(30, 80, 2.2);
+    robot->forward(20, 80, 2.2);
     robot->turn(90, 50, 2.2);
     spinIntake(127);
     robot->forward(3, 80, 2.2);
     pros::delay(100);
+    robot->backward(5, 80, 2.2);
     robot->turn(45, 50, 2.2);
     robot->backward(150, 80, 2.2);
     robot->turn(-135, 80, 2.2);
@@ -66,7 +67,16 @@ void SpinOut::opcontrolLoop()
 
     if (robot->masterController.y) launchDisks();
 
-    if (robot->masterController.rArrow) stringShooter.set_value(true);
+     
+    if (robot->masterController.rArrow) stringShooter.set_value(false);
+
+    //trying to get a piston to be extented when statred and decompress when we want it to
+    if (robot->masterController.uArrow) {
+        blockerW.set_value(true);
+    }
+    else{
+        blockerW.set_value(false);
+    }
 }
 
 void SpinOut::spinIntake(double speed)
