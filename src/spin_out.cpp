@@ -68,7 +68,7 @@ void SpinOut::opcontrolLoop()
     if (robot->masterController.y) launchDisks();
 
      
-    if (robot->masterController.rArrow) stringShooter.set_value(false);
+    if (robot->masterController.rArrow) stringShooter.set_value(true);
 
     //trying to get a piston to be extented when statred and decompress when we want it to
     if (robot->masterController.uArrow) {
