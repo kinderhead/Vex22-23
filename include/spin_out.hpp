@@ -22,6 +22,7 @@ public:
     ADIDigitalIn lever = ADIDigitalIn('B');
     ADIDigitalOut stringShooter = ADIDigitalOut('C');
     ADIDigitalOut blockerW = ADIDigitalOut('A');
+    ADIDigitalOut betterShot = ADIDigitalOut('D');
 
     int intakeSpeed = 0;
     bool pullingBack = false;
@@ -40,5 +41,6 @@ public:
     void spinCatapultVelocity(double speed);
     void spinBackCatapult();
     void launchDisks();
+    void autonShot();
     
 };

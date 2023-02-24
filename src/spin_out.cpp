@@ -16,20 +16,23 @@ void SpinOut::initialize()
 
 void SpinOut::autonomous()
 {
-    robot->forward(20, 80, 2.2);
-    robot->turn(90, 50, 2.2);
-    spinIntake(127);
-    robot->forward(3, 80, 2.2);
-    pros::delay(100);
-    robot->backward(5, 80, 2.2);
-    robot->turn(45, 50, 2.2);
-    robot->backward(150, 80, 2.2);
-    robot->turn(-135, 80, 2.2);
-    spinIntake(127);
-    robot->forward(20, 50, 2.2);
-    pros::delay(100);
-    spinIntake(0);
-    robot->turn(180,80, 2.2);
+    autonShot();
+    // robot->forward(20, 80, 2.2);
+    // robot->turn(90, 50, 2.2);
+    // spinIntake(127);
+    // robot->forward(3, 80, 2.2);
+    // pros::delay(100);
+    // robot->backward(5, 80, 2.2);
+    // robot->turn(45, 50, 2.2);
+    // robot->backward(150, 80, 2.2);
+    // robot->turn(-135, 80, 2.2);
+    // spinIntake(127);
+    // robot->forward(20, 50, 2.2);
+    // pros::delay(100);
+    // spinIntake(0);
+    // robot->turn(180,80, 2.2);
+
+
     // robot->forward(5, 80, 2.2);
     // spinIntake(127);
     // pros::delay(1000);
@@ -101,6 +104,14 @@ void SpinOut::spinBackCatapult()
 
 void SpinOut::launchDisks()
 {
+    spinCatapult(-127);
+    pros::delay(750);
+    spinBackCatapult();
+}
+
+void SpinOut::autonShot()
+{
+    betterShot.set_value(true);
     spinCatapult(-127);
     pros::delay(750);
     spinBackCatapult();
