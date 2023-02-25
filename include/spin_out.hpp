@@ -41,6 +41,5 @@ public:
     void spinCatapultVelocity(double speed);
     void spinBackCatapult();
     void launchDisks();
-    void autonShot();
     
 };
